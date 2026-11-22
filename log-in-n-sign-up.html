@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login & Sign Up</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #dbeafe, #e9d5ff);
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+}
+
+.logo {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: #7c3aed;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.tabs {
+    display: flex;
+    background: #f3f4f6;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.tabs button {
+    width: 50%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    background: transparent;
+    color: #666;
+    transition: 0.3s;
+}
+
+.tabs button.active {
+    background: #7c3aed;
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+}
+
+.password-wrap {
+    position: relative;
+}
+
+.password-wrap input {
+    padding-right: 65px;
+}
+
+.show-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #7c3aed;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.forgot {
+    text-align: right;
+    margin: -5px 0 20px;
+}
+
+.forgot a, .switch a {
+    color: #7c3aed;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: #6d28d9;
+    transform: translateY(-2px);
+}
+
+.switch {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 14px;
+    color: #666;
+}
+
+.hidden {
+    display: none;
+}
+
+.message {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #16a34a;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 28px 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">✨ MyWebsite</div>
+    <p class="subtitle">Welcome! Please enter your details.</p>
+
+    <div class="tabs">
+        <button id="loginTab" class="active"
+        onclick="switchForm('login')">Log In</button>
+
+        <button id="signupTab"
+        onclick="switchForm('signup')">Sign Up</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm">
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <div class="password-wrap">
+                <input type="password" id="loginPassword"
+                placeholder="Enter your password" required>
+                <button type="button" class="show-password"
+                onclick="togglePassword('loginPassword', this)">
+                Show</button>
+            </div>
+        </div>
+
+        <div class="forgot">
+            <a href="#" onclick="alert('Connect a password reset service to enable this feature.')">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="submit-btn">Log In</button>
+
+        <p class="switch">
+            Don't have an account?
+            <a onclick="switchForm('signup')">Sign Up</a>
+        </p>
+
+    </form>
+
+    <!-- SIGN UP FORM -->
+    <form id="signupForm" class="hidden">
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your full name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <div class="password-wrap">
+                <input type="password" id="signupPassword"
+                placeholder="Create a password" minlength="8" required>
+                <button type="button" class="show-password"
+                onclick="togglePassword('signupPassword', this)">
+                Show</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirmPassword"
+            placeholder="Confirm your password" required>
+        </div>
+
+        <button type="submit" class="submit-btn">Create Account</button>
+
+        <p class="switch">
+            Already have an account?
+            <a onclick="switchForm('login')">Log In</a>
+        </p>
+
+    </form>
+
+    <p class="message" id="message"></p>
+
+</div>
+
+<script>
+const loginForm = document.getElementById("loginForm");
+const signupForm = document.getElementById("signupForm");
+const message = document.getElementById("message");
+
+function switchForm(type) {
+    message.textContent = "";
+
+    if (type === "login") {
+        loginForm.classList.remove("hidden");
+        signupForm.classList.add("hidden");
+        document.getElementById("loginTab").classList.add("active");
+        document.getElementById("signupTab").classList.remove("active");
+    } else {
+        signupForm.classList.remove("hidden");
+        loginForm.classList.add("hidden");
+        document.getElementById("signupTab").classList.add("active");
+        document.getElementById("loginTab").classList.remove("active");
+    }
+}
+
+function togglePassword(id, button) {
+    const input = document.getElementById(id);
+
+    if (input.type === "password") {
+        input.type = "text";
+        button.textContent = "Hide";
+    } else {
+        input.type = "password";
+        button.textContent = "Show";
+    }
+}
+
+loginForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    message.textContent = "Login form submitted!";
+});
+
+signupForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const password = document.getElementById("signupPassword").value;
+    const confirm = document.getElementById("confirmPassword").value;
+
+    if (password !== confirm) {
+        message.style.color = "#dc2626";
+        message.textContent = "Passwords do not match!";
+        return;
+    }
+
+    message.style.color = "#16a34a";
+    message.textContent = "Registration form submitted!";
+});
+</script>
+
+</body>
+</html>
